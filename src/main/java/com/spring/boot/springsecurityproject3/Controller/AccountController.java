@@ -42,4 +42,54 @@ public class AccountController {
         accountService.deleteAccount(accountId);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Account deleted successfully"));
     }
+
+    // Employee
+    @PutMapping("/activate/{accountId}")
+    public ResponseEntity<?> activateAccount(@PathVariable Integer accountId){
+        accountService.activateAccount(accountId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Account activated successfully"));
+    }
+
+    // Employee/Customer
+    @GetMapping("/details/{accountId}/{customerId}")
+    public ResponseEntity<?> viewAccountDetails(@PathVariable Integer accountId,
+                                                @PathVariable Integer customerId){
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.viewAccountDetails(accountId,customerId));
+
+    }
+
+    // Customer
+    @GetMapping("/my-accounts/{customerId}")
+    public ResponseEntity<?> listMyAccounts(@PathVariable Integer customerId){
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.listMyAccounts(customerId));
+    }
+
+    // Customer, deposit or withdraw based on the amount sign positive or negative
+    @PutMapping("/deposit-withdraw/{accountId}/{customerId}/{amount}")
+    public ResponseEntity<?> atmTransaction(@PathVariable Integer accountId,
+                                            @PathVariable Integer customerId,
+                                            @PathVariable double amount){
+
+        accountService.atmTransaction(accountId, customerId, amount);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Account activated successfully"));
+    }
+
+    // customer
+    @PutMapping("/transfer/{fromAccountId}/{customerId}/{toAccountId}/{amount}")
+    public ResponseEntity<?> betweenAccountsTransaction(@PathVariable Integer fromAccountId,
+                                                        @PathVariable Integer customerId,
+                                                        @PathVariable Integer toAccountId,
+                                                        @PathVariable double amount) {
+
+        accountService.betweenAccountsTransaction(fromAccountId, customerId, toAccountId, amount);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Account activated successfully"));
+    }
+
+    // Employee
+    @PutMapping("/block/{accountId}")
+    public ResponseEntity<?> blockAccount(@PathVariable Integer accountId){
+        accountService.blockAccount(accountId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Account blocked successfully"));
+
+    }
 }

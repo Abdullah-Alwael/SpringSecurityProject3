@@ -12,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final UserService userService;
 
     public void addEmployee(Employee employee){
         employeeRepository.save(employee);
@@ -45,6 +46,7 @@ public class EmployeeService {
             throw new ApiException("Error, employee does not exist");
         }
 
-        employeeRepository.delete(oldEmployee);
+//        employeeRepository.delete(oldEmployee); // user cascade.all
+        userService.deleteUser(oldEmployee.getUser().getId());
     }
 }

@@ -2,6 +2,7 @@ package com.spring.boot.springsecurityproject3.Service;
 
 import com.spring.boot.springsecurityproject3.Api.ApiException;
 import com.spring.boot.springsecurityproject3.Model.Customer;
+import com.spring.boot.springsecurityproject3.Model.User;
 import com.spring.boot.springsecurityproject3.Repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-
-    // TODO add security, with DTO
+    private final UserService userService;
 
     public void addCustomer(Customer customer){
+        User user = new User(customer.getId(), customer.get);
+
+        userService.addUser(user);
         customerRepository.save(customer);
     }
 
@@ -46,6 +49,7 @@ public class CustomerService {
             throw new ApiException("Error, customer not found");
         }
 
-        customerRepository.delete(oldCustomer);
+//        customerRepository.delete(oldCustomer); // user cascade.all
+        userService.deleteUser(oldCustomer.getUser().getId());
     }
 }

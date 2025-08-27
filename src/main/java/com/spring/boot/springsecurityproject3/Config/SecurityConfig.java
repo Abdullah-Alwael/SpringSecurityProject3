@@ -45,10 +45,18 @@ public class SecurityConfig {
                         "api/v1/employee/**",
                         "api/v1/customer/list",
                         "api/v1/account/list").hasAuthority("ADMIN")
-                .requestMatchers("api/v1/customer/**",
+                .requestMatchers("api/v1/customer/update/**",
+                        "api/v1/customer/delete/**",
                         "api/v1/account/create",
-                        "api/v1/account/delete/**").hasAuthority("CUSTOMER")
-                .requestMatchers("api/v1/account/update/**").hasAuthority("EMPLOYEE")
+                        "api/v1/account/delete/**",
+                        "api/v1/account/details/**",
+                        "api/v1/account/my-accounts/**",
+                        "api/v1/account/deposit-withdraw/**",
+                        "api/v1/account/transfer/**").hasAuthority("CUSTOMER")
+                .requestMatchers("api/v1/account/update/**",
+                        "api/v1/account/activate/**",
+                        "api/v1/account/block/**",
+                        "api/v1/account/details/**").hasAuthority("EMPLOYEE")
                 .anyRequest().authenticated()
                 .and()
                 .logout().logoutUrl("api/v1/user/logout")
