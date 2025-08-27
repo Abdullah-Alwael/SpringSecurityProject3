@@ -17,6 +17,7 @@ public class CustomerService {
 
     public void addCustomer(Customer customer){
         User user = new User(customer.getId(), customer.get);
+        // TODO create DTO
 
         userService.addUser(user);
         customerRepository.save(customer);
