@@ -1,8 +1,6 @@
 package com.spring.boot.springsecurityproject3.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -29,5 +27,8 @@ public class Employee {
     @Column(columnDefinition = "double not null")
     private Double salary;
 
-    // TODO add one to one relation with the user model
+    @OneToOne
+    @MapsId
+    @JoinColumn
+    private User user;
 }

@@ -34,5 +34,7 @@ public class Account {
     @Column(columnDefinition = "boolean not null default false")
     private Boolean isActive = false;
 
-    // TODO create many accounts for one user relationship
+    @ManyToOne
+    @JoinColumn
+    private Customer customer;
 }

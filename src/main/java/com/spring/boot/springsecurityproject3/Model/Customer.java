@@ -1,10 +1,11 @@
 package com.spring.boot.springsecurityproject3.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,6 +23,12 @@ public class Customer {
     @Pattern(regexp = "^05.{8}$", message = "phoneNumber must start with 05 and 10 numbers long")
     private String phoneNumber;
 
-    // TODO add one to one relation with the user model
+    @OneToOne
+    @MapsId
+    @JoinColumn
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Account> account;
 
 }
