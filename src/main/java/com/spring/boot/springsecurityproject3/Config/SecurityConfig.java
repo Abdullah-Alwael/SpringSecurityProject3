@@ -40,13 +40,18 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests()
-                .requestMatchers("TODO").permitAll()
-                .requestMatchers("TODO").hasAuthority("ADMIN")
-                .requestMatchers("TODO").hasAuthority("CUSTOMER")
-                .requestMatchers("TODO").hasAuthority("EMPLOYEE")
+                .requestMatchers("api/v1/customer/register").permitAll()
+                .requestMatchers("api/v1/user/**",
+                        "api/v1/employee/**",
+                        "api/v1/customer/list",
+                        "api/v1/account/list").hasAuthority("ADMIN")
+                .requestMatchers("api/v1/customer/**",
+                        "api/v1/account/create",
+                        "api/v1/account/delete/**").hasAuthority("CUSTOMER")
+                .requestMatchers("api/v1/account/update/**").hasAuthority("EMPLOYEE")
                 .anyRequest().authenticated()
                 .and()
-                .logout().logoutUrl("TODO")
+                .logout().logoutUrl("api/v1/user/logout")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .and()

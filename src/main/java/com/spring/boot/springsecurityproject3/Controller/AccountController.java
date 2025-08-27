@@ -15,21 +15,28 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
     private final AccountService accountService;
 
-    @PostMapping("/add")
+    // customer
+    @PostMapping("/create")
     public ResponseEntity<?> addAccount(@Valid @RequestBody Account account){
         accountService.addAccount(account);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Account added successfully"));
 
     }
+
+    // admin
     @GetMapping("/list")
     public ResponseEntity<?> getAllAccounts(){
         return ResponseEntity.status(HttpStatus.OK).body(accountService.getAllAccounts());
     }
+
+    // Employee
     @PutMapping("/update/{accountId}")
     public ResponseEntity<?> updateAccount(@PathVariable Integer accountId, @Valid @RequestBody Account account){
         accountService.updateAccount(accountId,account);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Account updated successfully"));
     }
+
+    // customer
     @DeleteMapping("/delete/{accountId}")
     public ResponseEntity<?> deleteAccount(@PathVariable Integer accountId){
         accountService.deleteAccount(accountId);

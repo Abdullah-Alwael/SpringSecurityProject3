@@ -15,21 +15,28 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     private final CustomerService customerService;
 
-    @PostMapping("/add")
+    // everyone on the internet
+    @PostMapping("/register")
     public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer){
         customerService.addCustomer(customer);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Customer added successfully"));
 
     }
+
+    // Admin
     @GetMapping("/list")
     public ResponseEntity<?> getAllCustomers(){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.getCustomers());
     }
+
+    // customer user
     @PutMapping("/update/{customerId}")
     public ResponseEntity<?> updateCustomer(@PathVariable Integer customerId, @Valid @RequestBody Customer customer){
         customerService.updateCustomerPhoneNumber(customerId,customer);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Customer updated successfully"));
     }
+
+    // customer user
     @DeleteMapping("/delete/{customerId}")
     public ResponseEntity<?> deleteCustomer(@PathVariable Integer customerId){
         customerService.deleteCustomer(customerId);

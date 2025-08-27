@@ -15,21 +15,28 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    // Admin can add another admin
     @PostMapping("/add")
     public ResponseEntity<?> addUser(@Valid @RequestBody User user){
         userService.addUser(user);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("User added successfully"));
 
     }
+
+    // Admin can list all users
     @GetMapping("/list")
     public ResponseEntity<?> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
+
+    // Admin can update a user
     @PutMapping("/update/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable Integer userId, @Valid @RequestBody User user){
         userService.updateUser(userId,user);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("User updated successfully"));
     }
+
+    // Admin can delete a user
     @DeleteMapping("/delete/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable Integer userId){
         userService.deleteUser(userId);

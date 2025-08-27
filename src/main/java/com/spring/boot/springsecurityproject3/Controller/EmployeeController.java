@@ -15,21 +15,28 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
+    // Admin
     @PostMapping("/add")
     public ResponseEntity<?> addEmployee(@Valid @RequestBody Employee employee){
         employeeService.addEmployee(employee);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Employee added successfully"));
 
     }
+
+    // Admin
     @GetMapping("/list")
     public ResponseEntity<?> getAllEmployees(){
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees());
     }
+
+    // Admin
     @PutMapping("/update/{employeeId}")
     public ResponseEntity<?> updateEmployee(@PathVariable Integer employeeId, @Valid @RequestBody Employee employee){
         employeeService.updateEmployee(employeeId,employee);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Employee updated successfully"));
     }
+
+    // Admin
     @DeleteMapping("/delete/{employeeId}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Integer employeeId){
         employeeService.deleteEmployee(employeeId);
