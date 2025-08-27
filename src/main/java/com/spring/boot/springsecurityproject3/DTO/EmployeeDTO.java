@@ -1,16 +1,12 @@
 package com.spring.boot.springsecurityproject3.DTO;
 
-
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CustomerDTO {
+public class EmployeeDTO {
 
     @NotEmpty(message = "username can not be empty")
     @Size(min = 4, max = 10, message = "username must be between 4 and 10 characters")
@@ -27,10 +23,13 @@ public class CustomerDTO {
     @Email(message = "email must be a valid email")
     private String email;
 
-    private final String role = "CUSTOMER";
+    private final String role = "EMPLOYEE";
 
-    @NotEmpty(message = "phoneNumber must not be empty")
-    @Pattern(regexp = "^05.{8}$", message = "phoneNumber must start with 05 and 10 numbers long")
-    private String phoneNumber;
+    @NotEmpty(message = "position must not be empty")
+    private String position;
+
+    @NotNull(message = "salary must not be empty")
+    @Positive(message = "salary must be a positive decimal number")
+    private Double salary;
 
 }

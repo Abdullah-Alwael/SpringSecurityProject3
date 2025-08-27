@@ -1,7 +1,7 @@
 package com.spring.boot.springsecurityproject3.Controller;
 
 import com.spring.boot.springsecurityproject3.Api.ApiResponse;
-import com.spring.boot.springsecurityproject3.Model.Customer;
+import com.spring.boot.springsecurityproject3.DTO.CustomerDTO;
 import com.spring.boot.springsecurityproject3.Service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +17,8 @@ public class CustomerController {
 
     // everyone on the internet
     @PostMapping("/register")
-    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer){
-        customerService.addCustomer(customer);
+    public ResponseEntity<?> addCustomer(@Valid @RequestBody CustomerDTO customerDTO){
+        customerService.addCustomer(customerDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Customer added successfully"));
 
     }
@@ -31,8 +31,8 @@ public class CustomerController {
 
     // customer user
     @PutMapping("/update/{customerId}")
-    public ResponseEntity<?> updateCustomer(@PathVariable Integer customerId, @Valid @RequestBody Customer customer){
-        customerService.updateCustomerPhoneNumber(customerId,customer);
+    public ResponseEntity<?> updateCustomer(@PathVariable Integer customerId, @Valid @RequestBody CustomerDTO customerDTO){
+        customerService.updateCustomer(customerId,customerDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Customer updated successfully"));
     }
 
