@@ -1,6 +1,7 @@
 package com.spring.boot.springsecurityproject3.Controller;
 
 import com.spring.boot.springsecurityproject3.Api.ApiResponse;
+import com.spring.boot.springsecurityproject3.DTO.EmployeeDTO;
 import com.spring.boot.springsecurityproject3.Model.Employee;
 import com.spring.boot.springsecurityproject3.Service.EmployeeService;
 import jakarta.validation.Valid;
@@ -17,8 +18,8 @@ public class EmployeeController {
 
     // Admin
     @PostMapping("/add")
-    public ResponseEntity<?> addEmployee(@Valid @RequestBody Employee employee){
-        employeeService.addEmployee(employee);
+    public ResponseEntity<?> addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
+        employeeService.addEmployee(employeeDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Employee added successfully"));
 
     }
@@ -31,8 +32,8 @@ public class EmployeeController {
 
     // Admin
     @PutMapping("/update/{employeeId}")
-    public ResponseEntity<?> updateEmployee(@PathVariable Integer employeeId, @Valid @RequestBody Employee employee){
-        employeeService.updateEmployee(employeeId,employee);
+    public ResponseEntity<?> updateEmployee(@PathVariable Integer employeeId, @Valid @RequestBody EmployeeDTO employeeDTO){
+        employeeService.updateEmployee(employeeId,employeeDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Employee updated successfully"));
     }
 

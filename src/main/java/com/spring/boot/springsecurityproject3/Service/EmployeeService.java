@@ -7,6 +7,7 @@ import com.spring.boot.springsecurityproject3.Model.User;
 import com.spring.boot.springsecurityproject3.Repository.EmployeeRepository;
 import com.spring.boot.springsecurityproject3.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,8 +52,14 @@ public class EmployeeService {
 
         oldEmployee.setPosition(employeeDTO.getPosition());
         oldEmployee.setSalary(employeeDTO.getSalary());
-
         employeeRepository.save(oldEmployee);
+
+        oldUser.setName(employeeDTO.getName());
+        oldUser.setEmail(employeeDTO.getEmail());
+        oldUser.setUsername(employeeDTO.getUsername());
+        oldUser.setPassword(new BCryptPasswordEncoder().encode(employeeDTO.getPassword()));
+
+        userRepository.save(oldUser);
     }
 
     public void deleteEmployee(Integer employeeId){
