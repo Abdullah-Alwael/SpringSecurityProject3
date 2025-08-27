@@ -4,6 +4,7 @@ import com.spring.boot.springsecurityproject3.Api.ApiException;
 import com.spring.boot.springsecurityproject3.Model.User;
 import com.spring.boot.springsecurityproject3.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class UserService {
     private final UserRepository userRepository;
 
     public void addUser(User user){
+
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -35,7 +38,7 @@ public class UserService {
         oldUser.setName(user.getName());
         oldUser.setEmail(user.getEmail());
         oldUser.setUsername(user.getUsername());
-        oldUser.setPassword(user.getPassword());
+        oldUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
         userRepository.save(oldUser);
     }
